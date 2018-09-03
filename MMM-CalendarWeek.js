@@ -30,6 +30,7 @@ Module.register("MMM-CalendarWeek", {
 		hidePrivate: false,
 		hideOngoing: false,
 		colored: false,
+		showEndDate: false,
 		coloredSymbolOnly: false,
 		tableClass: "small",
 		calendars: [
@@ -278,6 +279,11 @@ Module.register("MMM-CalendarWeek", {
 						}
 						}
 						timeWrapper.innerHTML = moment(event.startDate, "x").format(timeFormatString);
+
+						if (this.config.showEndDate) {
+							timeWrapper.innerHTML = timeWrapper.innerHTML + "</br>" + moment(event.endDate, "x").format(timeFormatString);
+						}
+
 						eventWrapper.appendChild(timeWrapper);
 						titleWrapper.align = "right";
 					}
