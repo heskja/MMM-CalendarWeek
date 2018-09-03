@@ -31,6 +31,7 @@ Module.register("MMM-CalendarWeek", {
 		hideOngoing: false,
 		colored: false,
 		showEndDate: false,
+		allowDuplicate: false,
 		coloredSymbolOnly: false,
 		tableClass: "small",
 		calendars: [
@@ -164,6 +165,9 @@ Module.register("MMM-CalendarWeek", {
 		}
 
 		var lastSeenDate = "";
+
+		console.log();
+
 
 		/* Generate the view */
 		for (day in upcommingDays) {
@@ -377,6 +381,7 @@ Module.register("MMM-CalendarWeek", {
 
 				col.appendChild(eventWrapper);
 			}
+			console.log(col);
 			wrapper.appendChild(col);
 		}
 
@@ -450,7 +455,7 @@ Module.register("MMM-CalendarWeek", {
 						continue;
 					}
 				}
-				if(this.listContainsEvent(events,event)){
+				if(!this.config.allowDuplicate && this.listContainsEvent(events,event)){
 					continue;
 				}
 				event.url = c;
