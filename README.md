@@ -1,5 +1,5 @@
 # Module: MMM-CalendarWeek
-This calendar module is functionally the same as the default calendar app, however its presentation is different as it used week view.
+This calendar module for [Magic Mirror²](https://github.com/MichMich/MagicMirror) is functionally the same as the default calendar app, however its presentation is different as it uses week view.
 This module displays events from a public .ical calendar. It can combine multiple calendars.
 Note that calendars may not contain any entry before 1st January 1970, otherwise the calendar won't be displayed and the module will crash.
 
