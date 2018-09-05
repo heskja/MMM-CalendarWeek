@@ -38,6 +38,7 @@ The following properties can be configured:
 | ---------------------------- | -----------
 | `maximumEntries`             | The maximum number of events shown. / **Possible values:** `0` - `100` <br> **Default value:** `20`
 | `maximumNumberOfDays`        | The maximum number of days in the future. <br><br> **Default value:** `4`
+| `maximumDaysPerLine`         | The maximum number of days displayed per line. If set less than `maximumNumberOfDays`, it will display multiple rows with events.<br><br> **Default value:** `maximumNumberOfDays`
 | `displaySymbol`              | Display a symbol in front of an entry. <br><br> **Possible values:** `true` or `false` <br> **Default value:** `true`
 | `displaySymbol`              | Display a symbol in front of an entry. <br><br> **Possible values:** `true` or `false` <br> **Default value:** `true`
 | `showEndDate`                | Display event end date. <br><br> **Possible values:** `true` or `false` <br> **Default value:** `true`
