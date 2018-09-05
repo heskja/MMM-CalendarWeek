@@ -33,6 +33,7 @@ Module.register("MMM-CalendarWeek", {
 		colored: false,
 		showEndDate: false,
 		allowDuplicate: false,
+		maximumDaysPerLine: null,
 		coloredSymbolOnly: false,
 		tableClass: "small",
 		calendars: [
@@ -70,6 +71,10 @@ Module.register("MMM-CalendarWeek", {
 	// Override start method.
 	start: function () {
 		Log.log("Starting module: " + this.name);
+
+		if (this.config.maximumDaysPerLine == null) {
+			this.config.maximumDaysPerLine = this.config.maximumNumberOfDays;
+		}
 
 		// Set locale.
 		moment.updateLocale(config.language, this.getLocaleSpecification(config.timeFormat));
@@ -166,6 +171,8 @@ Module.register("MMM-CalendarWeek", {
 		}
 
 		var lastSeenDate = "";
+		var idx = 0;
+		var row = document.createElement("tr");
 
 		/* Generate the view */
 		for (day in upcommingDays) {
@@ -385,8 +392,14 @@ Module.register("MMM-CalendarWeek", {
 
 				col.appendChild(eventWrapper);
 			}
-			wrapper.appendChild(col);
+			if (idx % this.config.maximumDaysPerLine == 0 && idx > 0) {
+				wrapper.appendChild(row);
+				row = document.createElement("tr");
+			}
+			row.appendChild(col);
+			idx = idx + 1;
 		}
+		wrapper.appendChild(row);
 
 		return wrapper;
 	},
