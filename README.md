@@ -43,6 +43,7 @@ The following properties can be configured:
 | `showEndDate`                | Display event end date. <br><br> **Possible values:** `true` or `false` <br> **Default value:** `true`
 | `allowDuplicate`             | Display events from multiple calendars with matching title and start date. <br><br> **Possible values:** `true` or `false` <br> **Default value:** `false`
 | `maxTitleLength`             | The maximum title length. <br><br> **Possible values:** `10` - `50` <br> **Default value:** `25`
+| `hideEmptyDays`              | Hide days without events. <br><br> **Possible values:** `true` or `false` <br> **Default value:** `false`
 | `wrapEvents`                 | Wrap event titles to multiple lines. Breaks lines at the length defined by `maxTitleLength`. <br><br> **Possible values:** `true` or `false` <br> **Default value:** `false`
 | `fetchInterval`              | How often does the content needs to be fetched? (Milliseconds) <br><br> **Possible values:** `1000` - `86400000` <br> **Default value:** `300000` (5 minutes)
 | `animationSpeed`             | Speed of the update animation. (Milliseconds) <br><br> **Possible values:** `0` - `5000` <br> **Default value:** `2000` (2 seconds)
