@@ -29,6 +29,7 @@ Module.register("MMM-CalendarWeek", {
 		getRelative: 6,
 		hidePrivate: false,
 		hideOngoing: false,
+		hideEmptyDays: false,
 		colored: false,
 		showEndDate: false,
 		allowDuplicate: false,
@@ -166,13 +167,16 @@ Module.register("MMM-CalendarWeek", {
 
 		var lastSeenDate = "";
 
-		console.log();
-
-
 		/* Generate the view */
 		for (day in upcommingDays) {
 
 			events = upcommingDays[day];
+
+			/* Skip processing if we have no events and want to hide empty days */
+			if (events.length < 1 && this.config.hideEmptyDays){
+				continue;
+			}
+
 			var col = document.createElement("td");
 
 			col.className = "normal col";
@@ -381,7 +385,6 @@ Module.register("MMM-CalendarWeek", {
 
 				col.appendChild(eventWrapper);
 			}
-			console.log(col);
 			wrapper.appendChild(col);
 		}
 
