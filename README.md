@@ -18,7 +18,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
 ````javascript
 modules: [
 	{
-		module: "calendar",
+		module: "MMM-CalendarWeek",
 		position: "bottom_bar",	// This can be any of the regions. Best results in bottom region.
 		config: {
 			// The config property is optional.
