@@ -26,4 +26,5 @@
 .col {
  width: 20%;
  min-width: 20%;
+  vertical-align: top;
 }
