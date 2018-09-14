@@ -182,32 +182,50 @@ Module.register("MMM-CalendarWeek", {
 			/* Skip processing if we have no events and want to hide empty days */
 			if (events.length < 1 && this.config.hideEmptyDays){
 				continue;
-			}
+			} 
 
 			var col = document.createElement("td");
 
 			col.className = "normal col";
 
-			for (var e in events) {
-				var event = events[e];
-				var dateAsString = moment(event.startDate, "x").format(this.config.dateFormat);
+			var dateAsString = moment(moment(day), "x").format(this.config.dateFormat);
 
-				if(this.config.timeFormat === "dateheaders"){
-					if(lastSeenDate !== dateAsString){
-						var dateRow = document.createElement("tr");
-						dateRow.className = "normal"
-						var dateCell = document.createElement("td");
+			if(this.config.timeFormat === "dateheaders"){
+				if(lastSeenDate !== dateAsString){
+					var dateRow = document.createElement("tr");
+					dateRow.className = "normal"
+					var dateCell = document.createElement("td");
 
-						dateCell.colSpan = "3";
-						dateCell.innerHTML = this.capFirst(dateAsString);
-						dateRow.appendChild(dateCell);
-						col.appendChild(dateRow);
+					dateCell.colSpan = "3";
+					dateCell.innerHTML = this.capFirst(dateAsString);
+					dateRow.appendChild(dateCell);
+					col.appendChild(dateRow);
 
+					lastSeenDate = dateAsString;
+				}
+			}
 
-						lastSeenDate = dateAsString;
-					}
+			/* Display label with empty-text */
+			if (events.length < 1) {
+				var eventWrapper = document.createElement("tr");
+				var titleWrapper = document.createElement("td");
+
+				if (!this.config.colored) {
+					titleWrapper.className = "title bright";
+				} else {
+					titleWrapper.className = "title";
 				}
 
+				titleWrapper.colSpan = "3";
+
+				titleWrapper.innerHTML = this.translate("EMPTY");
+				eventWrapper.appendChild(titleWrapper);
+				col.appendChild(eventWrapper);
+			}
+
+			for (var e in events) {
+				var event = events[e];
+				
 				var eventWrapper = document.createElement("tr");
 
 				if (this.config.colored && !this.config.coloredSymbolOnly) {
