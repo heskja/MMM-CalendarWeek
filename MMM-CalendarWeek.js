@@ -18,6 +18,8 @@ Module.register("MMM-CalendarWeek", {
 		defaultSymbol: "calendar", // Fontawesome Symbol see http://fontawesome.io/cheatsheet/
 		displayRepeatingCountTitle: false,
 		defaultRepeatingCountTitle: "",
+		displayLocation: false,
+		displayDescription: false,
 		maxTitleLength: 30,
 		wrapEvents: false, // wrap events to multiple lines breaking at maxTitleLength
 		fetchInterval: 5 * 60 * 1000, // Update every 5 minutes.
@@ -62,10 +64,11 @@ Module.register("MMM-CalendarWeek", {
 
 	// Define required translations.
 	getTranslations: function () {
-		// The translations for the default modules are defined in the core translation files.
-		// Therefor we can just return false. Otherwise we should have returned a dictionary.
-		// If you're trying to build your own module including translations, check out the documentation.
-		return false;
+		return {
+			en: "translations/en.json",
+			nb: "translations/nb.json",
+			nn: "translations/nn.json"
+		}
 	},
 
 	// Override start method.
@@ -318,7 +321,7 @@ Module.register("MMM-CalendarWeek", {
 						}
 
 						eventWrapper.appendChild(timeWrapper);
-						titleWrapper.align = "right";
+						titleWrapper.align = "left";
 					}
 
 					eventWrapper.appendChild(titleWrapper);
@@ -409,6 +412,58 @@ Module.register("MMM-CalendarWeek", {
 				}
 
 				col.appendChild(eventWrapper);
+
+				//Display information about event location
+				if (this.config.displayLocation && event.location){
+					var locationWrapper = document.createElement("tr");
+					locationWrapper.className = "light";
+					var iconWrapper = document.createElement("td");
+					iconWrapper.colSpan = "2";
+					iconWrapper.className = "symbol align-right";
+					var symbol = document.createElement("span");
+
+					if (this.config.displaySymbol) {
+						symbol.className = "fa fa-map-marker";
+					} else {
+						symbol.innerHTML = this.translate("AT").toLowerCase();
+					}
+
+					iconWrapper.appendChild(symbol);
+					locationWrapper.appendChild(iconWrapper);
+
+					var locationString = document.createElement("td");
+					locationString.className = "align-left";
+					locationString.innerHTML = event.location;
+					locationWrapper.appendChild(locationString);
+
+
+					col.appendChild(locationWrapper);
+				}
+
+				//Display information about event description
+				if (this.config.displayDescription && event.description) {
+					var descriptionWrapper = document.createElement("tr");
+					descriptionWrapper.className = "light";
+					var iconWrapper = document.createElement("td");
+					iconWrapper.colSpan = "2";
+					iconWrapper.className = "symbol align-right";
+					var symbol = document.createElement("span");
+
+					if (this.config.displaySymbol) {
+						symbol.className = "fa fa-sticky-note-o";
+					} 
+
+					iconWrapper.appendChild(symbol);
+					descriptionWrapper.appendChild(iconWrapper);
+
+					var descriptionString = document.createElement("td");
+					descriptionString.className = "align-left";
+					descriptionString.innerHTML = event.description;
+					descriptionWrapper.appendChild(descriptionString);
+
+
+					col.appendChild(descriptionWrapper);
+				}
 			}
 			if (idx % this.config.maximumDaysPerLine == 0 && idx > 0) {
 				wrapper.appendChild(row);
