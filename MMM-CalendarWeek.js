@@ -161,15 +161,77 @@ Module.register("MMM-CalendarWeek", {
 			var endMoment = moment(event.endDate, "x");
 			var startMoment = moment(event.startDate, "x");
 
-			
 			for (day in upcommingDays) {
 
-				if (startMoment.isSame(day, 'day')){
+				//Processing for multi day events
+				if (this.isMultiDayEvent(event)){
+					//Multiday, starting or ending this day
+					if (startMoment.isSame(day, 'day')){
+						//If it starts at 00:00 and does not end this day, its a full day event and should 
+						//be displayed without start time
+						if (startMoment.hours() == 0 && startMoment.minutes() == 0){
+							upcommingDays[day].push({
+								description: event.description,
+								fullDayEvent: true,
+								geo: event.geo,
+								location: event.location,
+								title: event.title,
+								today: event.today,
+								url: event.url
+							});
+						} else {
+							//Set end date like end of the day to fully support "showEndDate"-option
+							upcommingDays[day].push({
+								description: event.description,
+								fullDayEvent: event.fullDayEvent,
+								geo: event.geo,
+								startDate: event.startDate,
+								endDate: moment(event.endDate, 'x').endOf('day'),
+								location: event.location,
+								title: event.title,
+								today: event.today,
+								url: event.url
+							});
+						}
+					//Multiday, day is within start and end
+					} else if (moment(day).isBetween(startMoment, endMoment)) {
+						upcommingDays[day].push({
+							description: event.description,
+							fullDayEvent: true,
+							geo: event.geo,
+							location: event.location,
+							title: event.title,
+							today: event.today,
+							url: event.url
+						});
+					//Multiday, ending this day
+					} else if (endMoment.isSame(day, 'day')){
+						//if ending at 00:00, it actually ended the day before and should
+						//not be displayed
+						//Set start Day to midnight at start of this day
+						if ( !(endMoment.hours() == 0 && endMoment.minutes() == 0)) {
+							upcommingDays[day].push({
+								description: event.description,
+								fullDayEvent: !this.config.showEndDate,
+								endDate: event.endDate,
+								startDate: moment(event.startDate, 'x').startOf('day'),
+								geo: event.geo,
+								location: event.location,
+								title: event.title,
+								today: event.today,
+								url: event.url
+							});
+						}
+					}
+				}
+				//Single day events
+				else if (startMoment.isSame(day, 'day')){
 					upcommingDays[day].push(event);
 				}
 				else if (event.fullDayEvent && moment(day).isBetween(startMoment, endMoment)){
 					upcommingDays[day].push(event);
-				}
+				} 
+				
 			}
 		}
 
@@ -680,6 +742,18 @@ Module.register("MMM-CalendarWeek", {
 				return string.trim();
 			}
 		}
+	},
+
+	/* isMultiDayEvent(event)
+	 * Checks if an event is a munti day event
+	 *
+	 * argument event obejct - The event object to check.
+	 *
+	 * return bool - The event is a multi-day event.
+	 *
+	*/
+	isMultiDayEvent: function(event) {
+		return !moment(event.endDate, "x").isSame(moment(event.startDate, "x"), "day");
 	},
 
 	/* capFirst(string)
