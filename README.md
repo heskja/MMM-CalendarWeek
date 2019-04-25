@@ -36,6 +36,7 @@ The following properties can be configured:
 
 | Option                       | Description
 | ---------------------------- | -----------
+| `calendarTitle`              | . / **Possible values:** `Any text` or `false` (off) <br> **Default value:** `false`
 | `maximumEntries`             | The maximum number of events shown. / **Possible values:** `0` - `100` <br> **Default value:** `20`
 | `maximumNumberOfDays`        | The maximum number of days in the future. <br><br> **Default value:** `4`
 | `maximumDaysPerLine`         | The maximum number of days displayed per line. If set less than `maximumNumberOfDays`, it will display multiple rows with events.<br><br> **Default value:** `maximumNumberOfDays`

@@ -25,6 +25,7 @@ Module.register("MMM-CalendarWeek", {
 		fetchInterval: 5 * 60 * 1000, // Update every 5 minutes.
 		animationSpeed: 2000,
 		urgency: 7,
+		calendarTitle: false,
 		timeFormat: "dateheaders",
 		dateFormat: "dddd Do MMM",
 		fullDayEventDateFormat: "MMM Do",
@@ -157,7 +158,7 @@ Module.register("MMM-CalendarWeek", {
 		/* Sort the event into correct array of days. */
 		for (var e in events) {
 			var event = events[e];
-			
+
 			var endMoment = moment(event.endDate, "x");
 			var startMoment = moment(event.startDate, "x");
 
@@ -167,7 +168,7 @@ Module.register("MMM-CalendarWeek", {
 				if (this.isMultiDayEvent(event)){
 					//Multiday, starting or ending this day
 					if (startMoment.isSame(day, 'day')){
-						//If it starts at 00:00 and does not end this day, its a full day event and should 
+						//If it starts at 00:00 and does not end this day, its a full day event and should
 						//be displayed without start time
 						if (startMoment.hours() == 0 && startMoment.minutes() == 0){
 							upcommingDays[day].push({
@@ -230,8 +231,8 @@ Module.register("MMM-CalendarWeek", {
 				}
 				else if (event.fullDayEvent && moment(day).isBetween(startMoment, endMoment)){
 					upcommingDays[day].push(event);
-				} 
-				
+				}
+
 			}
 		}
 
@@ -247,7 +248,7 @@ Module.register("MMM-CalendarWeek", {
 			/* Skip processing if we have no events and want to hide empty days */
 			if (events.length < 1 && this.config.hideEmptyDays){
 				continue;
-			} 
+			}
 
 			var col = document.createElement("td");
 
@@ -290,7 +291,7 @@ Module.register("MMM-CalendarWeek", {
 
 			for (var e in events) {
 				var event = events[e];
-				
+
 				var eventWrapper = document.createElement("tr");
 
 				if (this.config.colored && !this.config.coloredSymbolOnly) {
@@ -513,7 +514,7 @@ Module.register("MMM-CalendarWeek", {
 
 					if (this.config.displaySymbol) {
 						symbol.className = "fa fa-sticky-note-o";
-					} 
+					}
 
 					iconWrapper.appendChild(symbol);
 					descriptionWrapper.appendChild(iconWrapper);
@@ -535,6 +536,17 @@ Module.register("MMM-CalendarWeek", {
 			idx = idx + 1;
 		}
 		wrapper.appendChild(row);
+
+		if (this.config.calendarTitle != false && this.config.calendarTitle.length > 0) {
+			var wrapperHolder = document.createElement("div");
+			var titleHolder = document.createElement("span")
+			titleHolder.className = "align-left";
+			titleHolder.innerHTML = this.config.calendarTitle;
+			wrapperHolder.appendChild(titleHolder);
+			wrapperHolder.appendChild(wrapper);
+
+			wrapper = wrapperHolder;
+		}
 
 		return wrapper;
 	},
