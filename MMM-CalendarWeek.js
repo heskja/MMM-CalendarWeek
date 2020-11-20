@@ -20,6 +20,7 @@ Module.register("MMM-CalendarWeek", {
 		defaultRepeatingCountTitle: "",
 		displayLocation: false,
 		displayDescription: false,
+        displayBlankDays: false,
 		maxTitleLength: 30,
 		wrapEvents: false, // wrap events to multiple lines breaking at maxTitleLength
 		fetchInterval: 5 * 60 * 1000, // Update every 5 minutes.
@@ -284,7 +285,9 @@ Module.register("MMM-CalendarWeek", {
 
 				titleWrapper.colSpan = "3";
 
-				titleWrapper.innerHTML = this.translate("EMPTY");
+                if (!this.config.displayBlankDays) {
+				    titleWrapper.innerHTML = this.translate("EMPTY");
+                }
 				eventWrapper.appendChild(titleWrapper);
 				col.appendChild(eventWrapper);
 			}

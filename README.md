@@ -55,6 +55,7 @@ The following properties can be configured:
 | `displayRepeatingCountTitle` | Show count title for yearly repeating events (e.g. "X. Birthday", "X. Anniversary") <br><br> **Possible values:** `true` or `false` <br> **Default value:** `false`
 | `displayLocation` | Display the event location, if set in the calendar event. <br><br> **Possible values:** `true` or `false` <br> **Default value:** `false`
 | `displayDescription` | Display the event description, if set in the calendar event. <br><br> **Possible values:** `true` or `false` <br> **Default value:** `false`
+| `displayBlankDays` | Display days with no event as blank. If false, the day will display "No upcoming events." <br><br> **Possible values:** `true` or `false` <br> **Default value:** `false`
 | `dateFormat`                 | Format to use for the date of events (when using absolute dates) <br><br> **Possible values:** See [Moment.js formats](http://momentjs.com/docs/#/parsing/string-format/) <br> **Default value:** `dddd Do MMM` (e.g. Wednesday 21. aug)
 | `fullDayEventDateFormat`     | Format to use for the date of full day events (when using absolute dates) <br><br> **Possible values:** See [Moment.js formats](http://momentjs.com/docs/#/parsing/string-format/) <br> **Default value:** `MMM Do` (e.g. Jan 18th)
 | `timeFormat`                 | Display event times as absolute dates, or relative time, or using absolute date headers with times for each event next to it <br><br> **Possible values:** `absolute` or `relative` or `dateheaders` <br> **Default value:** `dateheaders`
