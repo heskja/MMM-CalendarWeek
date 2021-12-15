@@ -1,5 +1,6 @@
 {
     "dependencies": {
-        "valid-url": "^1.0.9"
+        "valid-url": "^1.0.9",
+        "request":"^2.88.2"
     }
 }
