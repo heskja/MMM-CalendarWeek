@@ -43,6 +43,7 @@ Module.register("MMM-CalendarWeek", {
 			{
 				symbol: "calendar",
 				url: "http://www.calendarlabs.com/templates/ical/US-Holidays.ics",
+				excludedEvents: [],
 			},
 		],
 		titleReplace: {
@@ -89,7 +90,8 @@ Module.register("MMM-CalendarWeek", {
 
 			var calendarConfig = {
 				maximumEntries: calendar.maximumEntries,
-				maximumNumberOfDays: calendar.maximumNumberOfDays
+				maximumNumberOfDays: calendar.maximumNumberOfDays,
+				excludedEvents: calendar.excludedEvents
 			};
 
 			// we check user and password here for backwards compatibility with old configs
